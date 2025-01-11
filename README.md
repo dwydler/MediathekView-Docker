@@ -14,7 +14,7 @@ Es handelt sich hierbei um eine Portierung in einen Docker Container. Basis des 
 ## Install Docker, download containers und configure application
 1. This script will install docker and containerd:
   ```
-  curl https://raw.githubusercontent.com/dwydler/MediathekView-Docker/refs/heads/main/misc/02-docker.io-installation.sh | bash
+  curl https://raw.githubusercontent.com/dwydler/MediathekView-Docker/refs/heads/master/misc/02-docker.io-installation.sh | bash
   ```
 2. For IPv6 support, edit the Docker daemon configuration file, located at `/etc/docker/daemon.json`. Configure the following parameters and run `systemctl restart docker.service` to restart docker:
   ```
