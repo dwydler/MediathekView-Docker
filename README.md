@@ -3,6 +3,8 @@
 ## Overview
 Das Programm MediathekView durchsucht die Online-Mediatheken verschiedener Sender.
 
+Es handelt sich hierbei um eine Portierung in einen Docker Container. Basis des Containers ist das Projekt [docker-baseimage-gui](https://github.com/jlesage/docker-baseimage-gui).
+
 
 ## Requirements
 * Docker & Docker Compose V2
