@@ -36,5 +36,3 @@ Es handelt sich hierbei um eine Portierung in einen Docker Container. Basis des 
 5. Editing `/opt/containers/mediathekview/.env` and set your parameters and data. Any change requires an restart of the containers.
 6. Starting application with `docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d`.
 7. Don't forget to test, that the application works successfully (e.g. http://FQDN:5800/).
-
-
