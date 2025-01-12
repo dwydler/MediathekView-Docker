@@ -15,3 +15,12 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-major","version-update:semver-minor"]
 
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every week
+      interval: "weekly"
+      day: "saturday"
+      timezone: "Europe/Berlin"
+      time: "05:00"
