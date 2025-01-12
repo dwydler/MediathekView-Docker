@@ -14,12 +14,12 @@ jobs:
     steps:
 
     - name: Checkout this repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
 
     
     - name: Read the latest tag from repository Mediathekview
       id: mediathekview_remote
-      uses: oprypin/find-latest-tag@v1
+      uses: oprypin/find-latest-tag@e6d7a96b985a7dda6080e43e12771ad3a90fd389 # v1.1.0
       with:
         # The repository to scan.
         repository: mediathekview/MediathekView
@@ -52,11 +52,11 @@ jobs:
 
 
     - name: Checkout this repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
 
 
     - name: Generate app token
-      uses: actions/create-github-app-token@v1
+      uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0 
       id: generate-token
       with:
         app-id: ${{ secrets.APP_ID }}
@@ -69,7 +69,7 @@ jobs:
 
     - name: Create Pull Request for the change
       id: cpr
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
       with:
         token: ${{ steps.generate-token.outputs.token }}
         commit-message: Bump mediathekview/MediathekView in ${{ steps.globals.outputs.MV_VERSION_FILE }}
