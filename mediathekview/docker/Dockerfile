@@ -1,5 +1,5 @@
 # Pull base image
-FROM jlesage/baseimage-gui:debian-10-v4.6.7
+FROM jlesage/baseimage-gui:debian-10-v4.7.0
 
 # Kopiere Voraussetzungen
 COPY /mediathekview/docker/requirements.txt ./
