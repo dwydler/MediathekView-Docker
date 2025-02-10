@@ -8,8 +8,9 @@ updates:
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/mediathekview/docker/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
       timezone: "Europe/Berlin"
+      day: "saturday"
       time: "05:00"
     ignore:
       - dependency-name: "*"
