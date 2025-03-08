@@ -36,6 +36,7 @@ RUN apt-get install -y \
     vlc \
     flvstreamer \
     ffmpeg \
+    vim \
     && rm -rf /var/lib/apt/lists/*
 
 # Maximize only the main/initial window.
