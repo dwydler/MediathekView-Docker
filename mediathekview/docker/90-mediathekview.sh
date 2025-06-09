@@ -48,24 +48,5 @@ else
 fi
 
 
-#
-# https://mediathekview.de/changelog/14-2-0/
-if [ "${ENABLE_LUCENE:-0}" -eq 1 ]; then
-
-    if ! grep -q "\--enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.vector" "/opt/MediathekView/MediathekView.vmoptions"; then
-
-        cat <<EOF >> /opt/MediathekView/MediathekView.vmoptions
-#
-# Beschleunigte Verarbeitung von Lucene mittels native access aktiviert
---enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.vector
-EOF
-    fi
-
-else
-    sed -e '/\# Beschleunigte Verarbeitung von Lucene mittels native access aktiviert/d' -i /opt/MediathekView/MediathekView.vmoptions
-    sed -e '/\--enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.vector/d' -i /opt/MediathekView/MediathekView.vmoptions
-fi
-
-
 # Disable automatic update for Mediathekview
 echo "127.0.0.1       download.mediathekview.de" >> /etc/hosts
