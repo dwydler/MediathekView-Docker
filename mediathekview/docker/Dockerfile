@@ -9,20 +9,18 @@ ENV APP_NAME="Mediathekview" \
     #APP_VERSION=14.1.0 \
     DOCKER_IMAGE_VERSION=1.0
     
-
+#
 ENV USER_ID=0 \
     GROUP_ID=0 \
     TERM=xterm \
     S6_KILL_GRACETIME=8000
 
-# Refresh apt cache
-RUN apt-get update \
-    && apt-get upgrade -y
-
 # Locale needed for storing files with umlaut
-RUN apt-get install -y apt-utils locales \
+RUN apt-get update && apt-get install -y apt-utils locales \
     && echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
-    && locale-gen
+    && locale-gen \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 #
 ENV LC_ALL=en_US.UTF-8 \
@@ -30,13 +28,14 @@ ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
 # Runtime deps
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     wget \
 	procps \
     vlc \
     flvstreamer \
     ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Maximize only the main/initial window.
 COPY /mediathekview/docker/main-window-selection.xml /etc/openbox/main-window-selection.xml
