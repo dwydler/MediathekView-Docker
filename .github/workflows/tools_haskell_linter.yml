@@ -1,8 +1,6 @@
 name: "Tools - Validate Dockerfile Schema"
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -11,7 +9,7 @@ jobs:
   validate-dockerfile-schema:
     name: Haskell Linter
     runs-on: ubuntu-latest
-        
+
     permissions:
       contents: read
       
