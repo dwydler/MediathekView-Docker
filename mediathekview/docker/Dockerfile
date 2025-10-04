@@ -1,6 +1,9 @@
 # Pull base image
 FROM jlesage/baseimage-gui:debian-12-v4.9.0
 
+# Change working directory
+WORKDIR ./
+
 # Kopiere Voraussetzungen
 COPY /mediathekview/docker/requirements.txt ./
 
