@@ -9,15 +9,11 @@ ENV APP_NAME="Mediathekview" \
     #APP_VERSION=14.1.0 \
     DOCKER_IMAGE_VERSION=1.0
     
-
+# 
 ENV USER_ID=0 \
     GROUP_ID=0 \
     TERM=xterm \
     S6_KILL_GRACETIME=8000
-
-# Refresh apt cache
-RUN apt-get update \
-    && apt-get upgrade -y
 
 # Locale needed for storing files with umlaut
 RUN apt-get install -y apt-utils locales \
