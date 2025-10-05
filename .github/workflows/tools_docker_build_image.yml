@@ -5,8 +5,6 @@ name: Tools - Docker Build Test
   pull_request:
     branches:
       - "master"
-    #types:
-      #- "labeled"
     paths:
       - '**Dockerfile'
 
