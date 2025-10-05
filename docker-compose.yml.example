@@ -34,5 +34,5 @@ services:
 
 
 networks:
-    mediathekview-network:
-      driver: bridge
+  mediathekview-network:
+    driver: bridge
