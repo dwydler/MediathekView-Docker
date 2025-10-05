@@ -16,11 +16,11 @@ jobs:
 
     permissions:
       contents: read
-  
+
     steps:
       - name: Checkout this repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
-  
+
       - name: Read the latest tag from repository Mediathekview
         id: mediathekview_remote
         uses: oprypin/find-latest-tag@dd2729fe78b0bb55523ae2b2a310c6773a652bd1  # v1.1.2
@@ -28,7 +28,7 @@ jobs:
           # The repository to scan.
           repository: mediathekview/MediathekView
           # We know that all relevant tags have a GitHub release for them.
-          releases-only: false  
+          releases-only: false
 
       - name: Read the locally stored version number
         id: mediathekview_local
