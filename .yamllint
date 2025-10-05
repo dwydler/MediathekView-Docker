@@ -7,9 +7,6 @@ yaml-files:
   - '.yamllint'
   - '*.yml.example'
 
-ignore: |
-  .github/
-
 rules:
   empty-lines:
     level: warning
