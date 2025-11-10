@@ -10,6 +10,7 @@ permissions:
 env:
   DOCKER_ACCOUNT: wydler
   DOCKER_REPO: mediathekview
+  DOCKER_REPO_TAG_CACHE_NAME: buildcache
   DOCKER_PLATFORMS: linux/amd64
 
 jobs:
@@ -22,14 +23,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
-
-      - name: Cache Docker layers
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830  # v4.3.0
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
 
       - name: Login to Docker Hub
         uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef  # v3.6.0
@@ -50,5 +43,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           platforms: ${{ env.DOCKER_PLATFORMS }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-from: type=registry,ref=${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.DOCKER_REPO_TAG_CACHE_NAME }}
+          cache-to: type=registry,ref=${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.DOCKER_REPO_TAG_CACHE_NAME }},mode=max
