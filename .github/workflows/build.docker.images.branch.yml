@@ -7,14 +7,14 @@ name: Build & publish docker images (branch)
 permissions:
   contents: read
 
+env:
+  DOCKER_ACCOUNT: wydler
+  DOCKER_REPO: mediathekview
+  DOCKER_PLATFORMS: linux/amd64
+
 jobs:
-  docker:
+  setup-build-push:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - image: wydler/mediathekview
-            dockerfile: ./mediathekview/docker/Dockerfile
 
     steps:
       - name: Checkout
@@ -46,11 +46,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83  # v6.18.0
         with:
-          context: .
-          file: ${{ matrix.dockerfile }}
+          context: ./mediathekview/docker/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64
+          platforms: ${{ env.DOCKER_PLATFORMS }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
