@@ -5,8 +5,8 @@ name: Build & publish docker images
   workflow_dispatch:
   release:
     types:
-      - created
-      - edited
+      - released
+      - prereleased
 
 permissions:
   contents: read
