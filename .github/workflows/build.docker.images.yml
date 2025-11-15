@@ -1,0 +1,80 @@
+---
+name: Build & publish docker images
+
+"on":
+  workflow_dispatch:
+  release:
+    types:
+      - released
+      - prereleased
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ${{ vars.REGISTRY }}
+  REGISTRY_ACCOUNT: ${{ vars.REGISTRY_ACCOUNT }}
+  REGISTRY_REPO: ${{ vars.REGISTRY_REPO }}
+  REGISTRY_REPO_TAG_CACHE_NAME: ${{ vars.REGISTRY_REPO_TAG_CACHE_NAME }}
+  REGISTRY_PLATFORMS: ${{ vars.REGISTRY_PLATFORMS }}
+
+jobs:
+  requirments:
+    name: Requirments
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        vars: [REGISTRY, REGISTRY_ACCOUNT, REGISTRY_REPO, REGISTRY_REPO_TAG_CACHE_NAME, REGISTRY_PLATFORMS]
+
+    steps:
+      - name: Check if variable exist
+        run: |
+          if [[ -z ${!VARNAME} ]]; then
+            echo "Variable \"${VARNAME}\" not found. Please create the variable under \"Repository variables\" \(https://github.com/${{ github.REPOSITORY}}/settings/variables/actions\)."
+            exit 1
+          fi
+        env:
+          VARNAME: "${{ matrix.vars }}"
+
+  setup-build-push:
+    name: Docker build & push
+    runs-on: ubuntu-latest
+    needs:
+      - requirments
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef  # v3.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create tag list for docker image
+        id: tags
+        run: |
+          if [ "${{ github.event.release.prerelease }}" = true ]; then
+            echo "docker=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          elif [ ! -z "${{ github.event.release.tag_name }}" ]; then
+            echo "docker=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:latest, ${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "docker=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build and push
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83  # v6.18.0
+        with:
+          context: ./mediathekview/docker/
+          push: true
+          tags: ${{ steps.tags.outputs.docker }}
+          platforms: ${{ env.REGISTRY_PLATFORMS }}
+          cache-from: type=registry,ref=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ env.REGISTRY_REPO_TAG_CACHE_NAME }}
+          cache-to: type=registry,ref=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ env.REGISTRY_REPO_TAG_CACHE_NAME }},mode=max
