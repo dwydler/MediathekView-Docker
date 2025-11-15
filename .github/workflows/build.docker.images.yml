@@ -12,11 +12,11 @@ permissions:
   contents: read
 
 env:
-  REGISTRY: docker.io
-  REGISTRY_ACCOUNT: wydler
-  REGISTRY_REPO: mediathekview
-  REGISTRY_REPO_TAG_CACHE_NAME: buildcache
-  REGISTRY_PLATFORMS: linux/amd64
+  REGISTRY: ${{ vars.REGISTRY }}
+  REGISTRY_ACCOUNT: ${{ vars.REGISTRY_ACCOUNT }}
+  REGISTRY_REPO: ${{ vars.REGISTRY_REPO }}
+  REGISTRY_REPO_TAG_CACHE_NAME: ${{ vars.REGISTRY_REPO_TAG_CACHE_NAME }}
+  REGISTRY_PLATFORMS: ${{ vars.REGISTRY_PLATFORMS }}
 
 jobs:
   setup-build-push:
