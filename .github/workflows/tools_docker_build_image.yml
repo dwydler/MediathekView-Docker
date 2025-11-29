@@ -11,6 +11,9 @@ name: Tools - Docker Build Test
 permissions:
   contents: read
 
+env:
+  REGISTRY_PLATFORMS: ${{ vars.REGISTRY_PLATFORMS }}  
+
 jobs:
   docker-build-image:
     name: Docker Build Image
