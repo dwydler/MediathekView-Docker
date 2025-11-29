@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  REGISTRY_PLATFORMS: ${{ vars.REGISTRY_PLATFORMS }}  
+  REGISTRY_PLATFORMS: ${{ vars.REGISTRY_PLATFORMS }}
 
 jobs:
   docker-build-image:
