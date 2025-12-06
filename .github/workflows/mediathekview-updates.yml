@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1
 
       - name: Read the latest tag from repository Mediathekview
         id: mediathekview_remote
@@ -57,7 +57,7 @@ jobs:
           echo "MV_VERSION_FILE=$MV_VERSION_FILE" >> $GITHUB_OUTPUT
 
       - name: Checkout this repository
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1
 
       - name: Generate app token
         uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf  # v2.2.1
