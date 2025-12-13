@@ -1,5 +1,5 @@
 # Pull base image
-FROM jlesage/baseimage-gui:debian-12-v4.10.2
+FROM jlesage/baseimage-gui:debian-12-v4.10.3
 
 # Change working directory
 WORKDIR /
