@@ -41,9 +41,11 @@ FROM jlesage/baseimage-gui:debian-12-v4.11.2
 
 # Build-Argument
 ARG APP_VERSION
+ARG DOCKER_IMAGE_VERSION
 
 # Runtime ENV
 ENV APP_VERSION=$APP_VERSION
+ENV DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION
 
 # ----------------------------------------
 # Metadata / Labels
