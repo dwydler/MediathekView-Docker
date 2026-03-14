@@ -1,4 +1,5 @@
 # MediathekView
+[![Docker Image Version (tag latest)](https://img.shields.io/docker/v/wydler/mediathekview/latest)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Image Size (tag latest)](https://img.shields.io/docker/image-size/wydler/mediathekview/latest)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Pulls](https://img.shields.io/docker/pulls/wydler/mediathekview)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Stars](https://img.shields.io/docker/stars/wydler/mediathekview)](https://hub.docker.com/r/wydler/mediathekview)
 
 ## Overview
 Das Programm MediathekView durchsucht die Online-Mediatheken verschiedener Sender.
