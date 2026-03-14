@@ -1,76 +1,108 @@
-# Pull base image
+# ----------------------------------------
+# Basis-Image
+# ----------------------------------------
 FROM jlesage/baseimage-gui:debian-12-v4.11.2
 
-# Change working directory
+
+# ----------------------------------------
+# Metadata / Labels
+# ----------------------------------------
+# Standardisierte Metadaten für Docker-Images (OCI-Labels)
+LABEL maintainer="Daniel Wydler"
+LABEL org.opencontainers.image.authors="Daniel Wydler"
+LABEL org.opencontainers.image.description="MediathekView ist ein Programm, das die Online-Mediatheken verschiedener öffentlich-rechtlicher TV-Sender durchsuchen und die vorhandenen Sendungen auflisten kann."
+LABEL org.opencontainers.image.documentation="https://github.com/dwydler/MediathekView-Docker/blob/master/README.md"
+LABEL org.opencontainers.image.source="https://github.com/dwydler/MediathekView-Docker"
+LABEL org.opencontainers.image.title="wydler/mediathekview"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekview"
+
+
+# ----------------------------------------
+# Arbeitsverzeichnis
+# ----------------------------------------
+# Setzt das aktuelle Arbeitsverzeichnis für alle folgenden Befehle
 WORKDIR /
 
-# Kopiere Voraussetzungen
-COPY /mediathekview/docker/requirements.txt ./
 
-# Set environment variables
+# ----------------------------------------
+# Umgebungsvariablen
+# ----------------------------------------
+# Konfiguration für die App, Locale, Terminal, S6 und JavaFX-Cache
 ENV APP_NAME="Mediathekview" \
-    #APP_VERSION=14.1.0 \
-    DOCKER_IMAGE_VERSION=1.0
-    
-# 
-ENV USER_ID=0 \
+    DOCKER_IMAGE_VERSION="1.0" \
+    USER_ID=0 \
     GROUP_ID=0 \
     TERM=xterm \
-    S6_KILL_GRACETIME=8000
-
-# Locale needed for storing files with umlaut
-RUN apt-get update \
-	&& apt-get install -y \
-	apt-utils locales \
-	&& rm -rf /var/lib/apt/lists/*
-
-#	
-RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
-    && locale-gen
-
-#
-ENV LC_ALL=en_US.UTF-8 \
+    S6_KILL_GRACETIME=8000 \
+    JAVAFX_TMP_DIR=/tmp/openjfx/cache \
+    LC_ALL=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LANG=en_US.UTF-8
 
-# Install runtime deps
+
+# ----------------------------------------
+# Installation von Paketen
+# ----------------------------------------
+# Installiert die benötigten Pakete für MediathekView und GUI
+# --no-install-recommends reduziert die Image-Größe, rm löscht den apt-Cache
 RUN apt-get update \
-	&& apt-get install -y \
+ && apt-get install -y --no-install-recommends \
+    apt-utils \
+    locales \
     wget \
-	procps \
+    procps \
     vlc \
     flvstreamer \
     ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
-# Maximize only the main/initial window.
-COPY /mediathekview/docker/main-window-selection.xml /etc/openbox/main-window-selection.xml
+# ----------------------------------------
+# Locale einrichten
+# ----------------------------------------
+# Notwendig, um Dateien mit Umlauten korrekt zu speichern
+RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
+    && locale-gen
+
+# ----------------------------------------
+# Kopiere die Version-/Requirements-Datei
+# ----------------------------------------
+# Enthält die gewünschte MediathekView-Version
+COPY /mediathekview/docker/requirements.txt ./
+
+# ----------------------------------------
+# Download und Entpacken von MediathekView
+# ----------------------------------------
+# Lädt das stabile Linux-Archiv herunter und entpackt es in /opt
+# Danach wird das temporäre Archiv gelöscht
+RUN mkdir -p /opt/MediathekView \
+ && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat requirements.txt)-linux.tar.gz" -O /tmp/MediathekView.tar.gz \
+ && tar xf /tmp/MediathekView.tar.gz -C /opt \
+ && rm /tmp/MediathekView.tar.gz
 
 
-# Define mountable directories.
-VOLUME ["/config"] \
-    ["/output"]
+# ----------------------------------------
+# Konfiguration der GUI
+# ----------------------------------------
+# Maximiert nur das Hauptfenster der Anwendung
+COPY mediathekview/docker/main-window-selection.xml /etc/openbox/main-window-selection.xml
 
-# Metadata.
-LABEL \
-      org.label-schema.name="mediathekview" \
-      org.label-schema.description="Docker container for Mediathekview" \
-      org.label-schema.version=$DOCKER_IMAGE_VERSION \
-      org.label-schema.vcs-url="https://github.com/dwydler/MediathekView-Docker" \
-      org.label-schema.schema-version="1.0"
 
-# Download and unpack Mediathekview
-RUN mkdir -p /opt/MediathekView
-RUN wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat requirements.txt)-linux.tar.gz" -O MediathekView.tar.gz
-RUN tar xf MediathekView.tar.gz -C /opt
+# ----------------------------------------
+# Init- und Startskripte
+# ----------------------------------------
+# S6 Init-Skript für MediathekView
+COPY mediathekview/docker/90-mediathekview.sh /etc/cont-init.d/90-mediathekview.sh
 
-# Customizing
-#ENV JAVAFX_GLX_DISABLE=0
-ENV JAVAFX_TMP_DIR=/tmp/openjfx/cache
+# Startscript für die Anwendung
+COPY mediathekview/docker/startapp.sh /startapp.sh
 
-COPY /mediathekview/docker/90-mediathekview.sh /etc/cont-init.d/90-mediathekview.sh
-RUN chmod 755 /etc/cont-init.d/90-mediathekview.sh
+# Setzt die ausführbaren Rechte für die Skripte
+RUN chmod 755 /etc/cont-init.d/90-mediathekview.sh /startapp.sh
 
-# Startscript for application
-COPY /mediathekview/docker/startapp.sh /startapp.sh
-RUN chmod 755 /startapp.sh
+
+# ----------------------------------------
+# Definierte Mountpoints
+# ----------------------------------------
+# /config: Persistente Konfiguration
+# /output: Speicherort für heruntergeladene Dateien
+VOLUME ["/config", "/output"]
