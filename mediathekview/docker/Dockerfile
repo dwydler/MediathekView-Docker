@@ -10,7 +10,7 @@ WORKDIR /tmp
 # Kopiere nur die requirements.txt
 # Diese enthält die gewünschte MediathekView-Version
 # ----------------------------------------
-COPY /mediathekview/docker/requirements.txt ./
+COPY /mediathekview/docker/requirements.txt /tmp/requirements.txt
 
 # ----------------------------------------
 # Installiere wget und ca-certificates für HTTPS-Download
@@ -27,10 +27,10 @@ RUN apt-get update \
 # Die Version wird direkt aus requirements.txt gelesen
 # ----------------------------------------
 RUN mkdir -p /opt/MediathekView \
- && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat requirements.txt)-linux.tar.gz" -O /tmp/MediathekView.tar.gz \
+ && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat /tmp/requirements.txt)-linux.tar.gz" -O /tmp/MediathekView.tar.gz \
  && tar xf /tmp/MediathekView.tar.gz -C /opt \
  && rm /tmp/MediathekView.tar.gz \
- && rm requirements.txt
+ && rm /tmp/requirements.txt
 
 
 # ----------------------------------------
