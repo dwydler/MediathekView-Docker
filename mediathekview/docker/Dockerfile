@@ -29,7 +29,8 @@ RUN apt-get update \
 RUN mkdir -p /opt/MediathekView \
  && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat requirements.txt)-linux.tar.gz" -O /tmp/MediathekView.tar.gz \
  && tar xf /tmp/MediathekView.tar.gz -C /opt \
- && rm /tmp/MediathekView.tar.gz
+ && rm /tmp/MediathekView.tar.gz \
+ && mv ./requirements.txt /opt/MediathekView/version
 
 
 # ----------------------------------------
