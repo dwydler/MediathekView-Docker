@@ -82,6 +82,7 @@ RUN apt-get update \
     flvstreamer \
     procps \
     libnotify4 \
+    libxtst6 \
  && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------
