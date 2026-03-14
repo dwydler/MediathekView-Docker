@@ -80,6 +80,7 @@ RUN apt-get update \
     ffmpeg \
     flvstreamer \
     procps \
+    libxtst6 \
  && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------
