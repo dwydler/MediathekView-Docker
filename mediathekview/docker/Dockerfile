@@ -69,8 +69,8 @@ ENV APP_NAME="Mediathekview" \
 # Generiere die en_US.UTF-8 Locale, damit UTF-8 Zeichen korrekt unterstützt werden
 # und Bash/Java-Anwendungen keine "cannot change locale"-Warnings ausgeben
 # ----------------------------------------
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
- && locale-gen
+RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
+    && locale-gen
 
 # ----------------------------------------
 # Kopiere die entpackten MediathekView-Dateien aus der Build-Stage
