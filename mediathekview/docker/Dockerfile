@@ -66,13 +66,6 @@ ENV APP_NAME="Mediathekview" \
     LANG=en_US.UTF-8
 
 # ----------------------------------------
-# Generiere die en_US.UTF-8 Locale, damit UTF-8 Zeichen korrekt unterstützt werden
-# und Bash/Java-Anwendungen keine "cannot change locale"-Warnings ausgeben
-# ----------------------------------------
-RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
-    && locale-gen
-
-# ----------------------------------------
 # Kopiere die entpackten MediathekView-Dateien aus der Build-Stage
 # ----------------------------------------
 COPY --from=builder /opt/MediathekView /opt/MediathekView
@@ -83,6 +76,7 @@ COPY --from=builder /opt/MediathekView /opt/MediathekView
 # ----------------------------------------
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+    locales \
     vlc \
     ca-certificates \
     ffmpeg \
@@ -91,6 +85,13 @@ RUN apt-get update \
     libnotify4 \
     libxtst6 \
  && rm -rf /var/lib/apt/lists/*
+
+# ----------------------------------------
+# Generiere die en_US.UTF-8 Locale, damit UTF-8 Zeichen korrekt unterstützt werden
+# und Bash/Java-Anwendungen keine "cannot change locale"-Warnings ausgeben
+# ----------------------------------------
+RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
+    && locale-gen
 
 # ----------------------------------------
 # GUI-Konfiguration und Startskripte
