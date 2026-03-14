@@ -45,13 +45,13 @@ ARG DOCKER_IMAGE_VERSION
 # ----------------------------------------
 # Metadata / Labels
 # ----------------------------------------
-LABEL maintainer="Daniel Wydler"
-LABEL org.opencontainers.image.authors="Daniel Wydler"
-LABEL org.opencontainers.image.description="MediathekView ist ein Programm, das die Online-Mediatheken verschiedener öffentlich-rechtlicher TV-Sender durchsuchen und die vorhandenen Sendungen auflisten kann."
-LABEL org.opencontainers.image.documentation="https://github.com/dwydler/MediathekView-Docker/blob/master/README.md"
-LABEL org.opencontainers.image.source="https://github.com/dwydler/MediathekView-Docker"
-LABEL org.opencontainers.image.title="wydler/mediathekview"
-LABEL org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekview"
+LABEL maintainer="Daniel Wydler" \
+      org.opencontainers.image.authors="Daniel Wydler" \
+      org.opencontainers.image.description="MediathekView durchsucht Online-Mediatheken öffentlich-rechtlicher Sender." \
+      org.opencontainers.image.documentation="https://github.com/dwydler/MediathekView-Docker/blob/master/README.md" \
+      org.opencontainers.image.source="https://github.com/dwydler/MediathekView-Docker" \
+      org.opencontainers.image.title="wydler/mediathekview" \
+      org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekview"
 
 # ----------------------------------------
 # Setze Umgebungsvariablen
