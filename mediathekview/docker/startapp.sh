@@ -10,4 +10,4 @@ set -eux
 export HOME=/config
 
 # Starte MediathekView und nutze das HOME-Verzeichnis für Konfiguration
-/opt/MediathekView/MediathekView -m $HOME
+/opt/MediathekView/MediathekView -m "$HOME"
