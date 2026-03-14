@@ -38,10 +38,18 @@ RUN mkdir -p /opt/MediathekView \
 # ----------------------------------------
 FROM jlesage/baseimage-gui:debian-12-v4.11.2
 
+
+# Build-Argument
+ARG APP_VERSION
+
+# Runtime ENV
+ENV APP_VERSION=$APP_VERSION
+
 # ----------------------------------------
 # Metadata / Labels
 # ----------------------------------------
 LABEL maintainer="Daniel Wydler"
+LABEL org.opencontainers.image.version=$APP_VERSION
 LABEL org.opencontainers.image.authors="Daniel Wydler"
 LABEL org.opencontainers.image.description="MediathekView ist ein Programm, das die Online-Mediatheken verschiedener öffentlich-rechtlicher TV-Sender durchsuchen und die vorhandenen Sendungen auflisten kann."
 LABEL org.opencontainers.image.documentation="https://github.com/dwydler/MediathekView-Docker/blob/master/README.md"
