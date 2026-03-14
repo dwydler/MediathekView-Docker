@@ -77,10 +77,11 @@ COPY --from=builder /opt/MediathekView /opt/MediathekView
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     vlc \
+    ca-certificates \
     ffmpeg \
     flvstreamer \
     procps \
-    libxtst6 \
+    libnotify4 \
  && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------
