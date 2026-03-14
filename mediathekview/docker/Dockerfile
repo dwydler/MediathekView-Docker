@@ -50,6 +50,7 @@ RUN apt-get update \
     apt-utils \
     locales \
     wget \
+    ca-certificates \
     procps \
     vlc \
     flvstreamer \
