@@ -44,8 +44,8 @@ ARG APP_VERSION
 ARG DOCKER_IMAGE_VERSION
 
 # Runtime ENV
-ENV APP_VERSION=$APP_VERSION
-ENV DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION
+#ENV APP_VERSION=$APP_VERSION
+#ENV DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION
 
 # ----------------------------------------
 # Metadata / Labels
@@ -66,7 +66,8 @@ LABEL org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekvie
 # TERM und S6_KILL_GRACETIME für Baseimage-GUI
 # ----------------------------------------
 ENV APP_NAME="Mediathekview" \
-    DOCKER_IMAGE_VERSION="1.0" \
+    APP_VERSION=$APP_VERSION \
+    DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION \
     USER_ID=0 \
     GROUP_ID=0 \
     TERM=xterm \
