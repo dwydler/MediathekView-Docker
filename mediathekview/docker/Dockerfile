@@ -39,6 +39,7 @@ FROM jlesage/baseimage-gui:debian-12-v4.11.2
 
 # Build-Argument
 ARG APP_VERSION
+ARG DOCKER_IMAGE_VERSION
 
 # ----------------------------------------
 # Metadata / Labels
@@ -59,7 +60,7 @@ LABEL org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekvie
 # ----------------------------------------
 ENV APP_NAME="Mediathekview" \
     APP_VERSION=$APP_VERSION \
-    DOCKER_IMAGE_VERSION="1.0" \
+    DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION \
     USER_ID=0 \
     GROUP_ID=0 \
     TERM=xterm \
