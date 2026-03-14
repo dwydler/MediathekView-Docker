@@ -16,6 +16,10 @@ if [ ! -f /config/bookmarks.json ]; then
 EOF
 fi
 
+#
+# Rechte setzen
+chown -R app:app /config /output
+
 
 #
 # https://stackoverflow.com/questions/76328891/how-to-redirect-where-javafx-caches-dll-libraries
