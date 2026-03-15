@@ -3,6 +3,11 @@
 # ----------------------------------------
 FROM debian:12-slim AS builder
 
+# ----------------------------------------
+# Build-Argument
+# ----------------------------------------
+ARG TARGETARCH
+
 # Setze Arbeitsverzeichnis für temporäre Dateien
 WORKDIR /tmp
 
@@ -23,14 +28,21 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------
-# Download und Entpacken von MediathekView
-# Die Version wird direkt aus requirements.txt gelesen
+# Create /opt/MediathekView directory and download the correct MediathekView archive
+# based on the build target architecture (TARGETARCH).  
+# - For arm64 builds, use "linux-aarch64" archive  
+# - For amd64 builds, use "linux" archive  
+# Then extract the archive to /opt and clean up temporary files.
 # ----------------------------------------
 RUN mkdir -p /opt/MediathekView \
- && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat /tmp/requirements.txt)-linux.tar.gz" -O /tmp/MediathekView.tar.gz \
+ && case "$TARGETARCH" in \
+      arm64) ARCH="linux-aarch64" ;; \
+      amd64) ARCH="linux" ;; \
+      *) echo "Unsupported arch: $TARGETARCH" && exit 1 ;; \
+    esac \
+ && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat /tmp/requirements.txt)-${ARCH}.tar.gz" -O /tmp/MediathekView.tar.gz \
  && tar xf /tmp/MediathekView.tar.gz -C /opt \
- && rm /tmp/MediathekView.tar.gz \
- && rm /tmp/requirements.txt
+ && rm /tmp/MediathekView.tar.gz /tmp/requirements.txt
 
 
 # ----------------------------------------
