@@ -1,0 +1,7 @@
+# Alles standardmäßig ausschließen
+*
+
+# Dateien, die der Dockerfile benötigt
+!Dockerfile
+!rootfs
+!mediathekview.version
