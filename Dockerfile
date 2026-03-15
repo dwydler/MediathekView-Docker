@@ -113,11 +113,9 @@ RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen \
     && locale-gen
 
 # ----------------------------------------
-# GUI-Konfiguration und Startskripte
+# RootFS & Permissions
 # ----------------------------------------
-COPY mediathekview/docker/main-window-selection.xml /etc/openbox/main-window-selection.xml
-COPY mediathekview/docker/90-mediathekview.sh /etc/cont-init.d/90-mediathekview.sh
-COPY mediathekview/docker/startapp.sh /startapp.sh
+COPY rootfs /
 
 RUN chmod 755 \
     /etc/cont-init.d/90-mediathekview.sh \
