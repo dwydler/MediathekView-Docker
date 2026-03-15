@@ -21,8 +21,8 @@ services:
       ENABLE_CJK_FONT: "${ENABLE_CJK_FONT}"
 
     volumes:
-      - "./mediathekview/config:/config:rw"
-      - "./mediathekview/output:/output:rw"
+      - "./data/config:/config:rw"
+      - "./data/output:/output:rw"
 
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
