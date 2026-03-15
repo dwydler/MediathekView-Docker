@@ -8,7 +8,7 @@ name: Mediathekview Updates
 
 # Global environment variable accessible to all jobs and steps
 env:
-  MV_VERSION_FILE: 'mediathekview/docker/requirements.txt'
+  MV_VERSION_FILE: 'mediathekview.version'
 
 jobs:
   tag-new-versions:

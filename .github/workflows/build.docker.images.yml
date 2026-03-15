@@ -72,12 +72,12 @@ jobs:
             echo "docker_image_version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Read version from requirements.txt
+      - name: Read version from mediathekview.version
         id: mv
         run: |
           # Lese die erste Zeile der Datei (Version)
-          VERSION=$(head -n 1 mediathekview/docker/requirements.txt)
-          echo "Version aus requirements.txt: $VERSION"
+          VERSION=$(head -n 1 mediathekview.version)
+          echo "Version aus mediathekview.version: $VERSION"
 
           # Exportiere als GitHub Actions Output
           echo "version=$VERSION" >> $GITHUB_OUTPUT

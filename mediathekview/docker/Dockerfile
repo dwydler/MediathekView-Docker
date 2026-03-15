@@ -12,10 +12,10 @@ ARG TARGETARCH
 WORKDIR /tmp
 
 # ----------------------------------------
-# Kopiere nur die requirements.txt
+# Kopiere nur die mediathekview.version
 # Diese enthält die gewünschte MediathekView-Version
 # ----------------------------------------
-COPY /mediathekview/docker/requirements.txt /tmp/requirements.txt
+COPY mediathekview.version /tmp/mediathekview.version
 
 # ----------------------------------------
 # Installiere wget und ca-certificates für HTTPS-Download
@@ -40,9 +40,9 @@ RUN mkdir -p /opt/MediathekView \
       amd64) ARCH="linux" ;; \
       *) echo "Unsupported arch: $TARGETARCH" && exit 1 ;; \
     esac \
- && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat /tmp/requirements.txt)-${ARCH}.tar.gz" -O /tmp/MediathekView.tar.gz \
+ && wget -q "https://download.mediathekview.de/stabil/MediathekView-$(cat /tmp/mediathekview.version)-${ARCH}.tar.gz" -O /tmp/MediathekView.tar.gz \
  && tar xf /tmp/MediathekView.tar.gz -C /opt \
- && rm /tmp/MediathekView.tar.gz /tmp/requirements.txt
+ && rm /tmp/MediathekView.tar.gz /tmp/mediathekview.version
 
 
 # ----------------------------------------
