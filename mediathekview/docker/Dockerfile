@@ -102,6 +102,7 @@ RUN apt-get update \
     procps \
     libnotify4 \
     libxtst6 \
+    xmlstarlet \
  && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------

@@ -17,6 +17,26 @@ EOF
 fi
 
 
+# Prüft, ob die Datei /config/settings.xml existiert.
+# Falls ja, wird der Wert von <settings><application><notifications><show> auf "false" gesetzt
+# Mithilfe von xmlstarlet, um Benachrichtigungen in der Konfiguration zu deaktivieren.
+if [ -f /config/settings.xml ]; then
+    # Prüfen, ob <notifications> unter <settings>/<application> existiert, sonst hinzufügen
+    if ! xmlstarlet sel -t -v "count(/settings/application/notifications)" /config/settings.xml | grep -q '^1$'; then
+        xmlstarlet ed -L -s "/settings/application" -t elem -n "notifications" -v "" /config/settings.xml
+    fi
+
+    # Prüfen, ob <show> unter <notifications> existiert, sonst hinzufügen oder Wert setzen
+    if xmlstarlet sel -t -v "count(/settings/application/notifications/show)" /config/settings.xml | grep -q '^1$'; then
+        # <show> existiert → Wert auf false setzen
+        xmlstarlet ed -L -u "/settings/application/notifications/show" -v "false" /config/settings.xml
+    else
+        # <show> existiert nicht → Element hinzufügen
+        xmlstarlet ed -L -s "/settings/application/notifications" -t elem -n "show" -v "false" /config/settings.xml
+    fi
+fi
+
+
 # Setze das Home-Verzeichnis des Users "app" von /dev/null auf /output,
 # damit der Benutzer ein gültiges Home-Verzeichnis im Volume erhält
 sed -i 's#^\(app:[^:]*:[^:]*:[^:]*:[^:]*:\)/dev/null#\1/output#' /etc/passwd
