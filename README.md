@@ -34,8 +34,9 @@ This is a port to a Docker container. The container is based on the project [doc
   cp /opt/containers/mediathekview/docker-compose.yml.example /opt/containers/mediathekview/docker-compose.yml
   ```
 5. Editing `/opt/containers/mediathekview/.env` and set your parameters and data. Any change requires an restart of the containers.
-6. Starting application with `docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d`.
-7. Don't forget to test, that the application works successfully (e.g. http://FQDN:5800/).
+6. Editing `/opt/containers/mediathekview/docker-compose.yml` and set your parameters (e.g., specify an explicit tag, public port, etc.).
+7. Starting application with `docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d`.
+8. Don't forget to test, that the application works successfully (e.g. http://FQDN:5800/).
 
 # Notice
 On the very first start of the container (no Mediathekview configuration present), error messages appear in the container's log.
