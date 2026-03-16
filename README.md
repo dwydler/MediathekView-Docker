@@ -2,9 +2,8 @@
 [![Docker Image Version (tag latest)](https://img.shields.io/docker/v/wydler/mediathekview/latest)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Image Size (tag latest)](https://img.shields.io/docker/image-size/wydler/mediathekview/latest)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Pulls](https://img.shields.io/docker/pulls/wydler/mediathekview)](https://hub.docker.com/r/wydler/mediathekview) [![Docker Stars](https://img.shields.io/docker/stars/wydler/mediathekview)](https://hub.docker.com/r/wydler/mediathekview)
 
 ## Overview
-Das Programm MediathekView durchsucht die Online-Mediatheken verschiedener Sender.
-
-Es handelt sich hierbei um eine Portierung in einen Docker Container. Basis des Containers ist das Projekt [docker-baseimage-gui](https://github.com/jlesage/docker-baseimage-gui).
+The program MediathekView searches the online media libraries of various public broadcasters.  
+This is a port to a Docker container. The container is based on the project [docker-baseimage-gui](https://github.com/jlesage/docker-baseimage-gui).
 
 
 ## Requirements
