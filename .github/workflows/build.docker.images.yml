@@ -90,7 +90,7 @@ jobs:
           push: true
           build-args: |
             APP_VERSION=${{ steps.mv.outputs.version }}
-            DOCKER_IMAGE_VERSION=${{ steps.tags.outputs.docker_image_version }}	
+            DOCKER_IMAGE_VERSION=${{ steps.tags.outputs.docker_image_version }}
           tags: ${{ steps.tags.outputs.docker }}
           platforms: ${{ env.REGISTRY_PLATFORMS }}
           cache-from: type=registry,ref=${{ env.REGISTRY_ACCOUNT }}/${{ env.REGISTRY_REPO }}:${{ env.REGISTRY_REPO_TAG_CACHE_NAME }}
