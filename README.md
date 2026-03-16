@@ -28,7 +28,7 @@ This is a port to a Docker container. The container is based on the project [doc
   git clone https://github.com/dwydler/MediathekView-Docker.git /opt/containers/mediathekview
   git -C /opt/containers/mediathekview checkout $(git -C /opt/containers/mediathekview tag | tail -1)
   ```
-4. Create the .env file:
+4. Create docker-compose.yml and .env file:
   ```
   cp /opt/containers/mediathekview/.env.example /opt/containers/mediathekview/.env
   cp /opt/containers/mediathekview/docker-compose.yml.example /opt/containers/mediathekview/docker-compose.yml
