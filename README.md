@@ -52,11 +52,11 @@ This is a port to a Docker container. The container is based on the project [doc
   ```
   docker compose -f docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d --force-recreate
   ```
-  
-# Notice
+
+## Notice
 On the very first start of the container (no Mediathekview configuration present), error messages appear in the container's log.
 
-## Error when get server info
+### Error when get server info
 This is due to the fact that the "Show notifications" parameter is enabled by default in MediathekView's settings.  
 ```
 . Failed to initialize libNotify
@@ -83,7 +83,7 @@ mediathekview  | [app          ]        at java.desktop/java.awt.EventDispatchTh
 The parameter is disabled the next time the container is started.
 
 
-## AWT-EventQueue-0
+### AWT-EventQueue-0
 This message appears the first time you download the movie list.
 
 ```
