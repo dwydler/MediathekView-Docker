@@ -37,7 +37,22 @@ This is a port to a Docker container. The container is based on the project [doc
 6. Editing `/opt/containers/mediathekview/docker-compose.yml` and set your parameters (e.g., specify an explicit tag, public port, etc.).
 7. Starting application with `docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d`.
 8. Don't forget to test, that the application works successfully (e.g. http://FQDN:5800/).
+## Update Repo and docker image
 
+1. Update Git Repository to latest release:
+  ```
+  git -C /opt/containers/mediathekview pull
+  git -C /opt/containers/mediathekview checkout $(git -C /opt/containers/mediathekview tag | tail -1)
+  ```
+2. Update docker image to latest release:
+  ```
+  docker image pull wydler/mediathekview:latest
+  ```
+3. (Re)start container:
+  ```
+  docker compose -f docker compose -f /opt/containers/mediathekview/docker-compose.yml up -d --force-recreate
+  ```
+  
 # Notice
 On the very first start of the container (no Mediathekview configuration present), error messages appear in the container's log.
 
