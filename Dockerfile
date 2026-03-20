@@ -1,7 +1,7 @@
 # ----------------------------------------
 # Stage 1: Build / Download MediathekView
 # ----------------------------------------
-FROM debian:12-slim AS builder
+FROM debian:12.13-slim AS builder
 
 # ----------------------------------------
 # Build-Argument
