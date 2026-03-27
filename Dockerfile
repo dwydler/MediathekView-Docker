@@ -1,7 +1,7 @@
 # ----------------------------------------
 # Stage 1: Build / Download MediathekView
 # ----------------------------------------
-FROM debian:12.13-slim AS builder
+FROM debian:13.4-slim@sha256:26f98ccd92fd0a44d6928ce8ff8f4921b4d2f535bfa07555ee5d18f61429cf0c AS builder
 
 # ----------------------------------------
 # Build-Argument
@@ -48,7 +48,7 @@ RUN mkdir -p /opt/MediathekView \
 # ----------------------------------------
 # Stage 2: Runtime
 # ----------------------------------------
-FROM jlesage/baseimage-gui:debian-12-v4.11.3
+FROM jlesage/baseimage-gui:debian-13-v4.11.3@sha256:a9dc8f37a5d0e7ca9246a1d1ac4c30b4aa5d515372af16057cfb62ed0254056f
 
 # Build-Argument
 ARG APP_VERSION
