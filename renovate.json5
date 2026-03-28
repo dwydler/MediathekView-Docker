@@ -1,0 +1,134 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'helpers:pinGitHubActionDigests',
+  ],
+  commitMessagePrefix: 'chore(deps):',
+  timezone: 'Europe/Berlin',
+  prHourlyLimit: 0,
+  prConcurrentLimit: 0,
+  automerge: false,
+  enabledManagers: [
+    'github-actions',
+    'custom.regex',
+    'dockerfile',
+  ],
+ 
+
+  customManagers: [
+    {
+      // ===========================================================================
+      // MediathekView
+      // ===========================================================================  
+      customType: 'regex',
+      managerFilePatterns: [
+        '/mediathekview.version/',
+      ],
+      matchStrings: [
+        '(?<currentValue>\\d+\\.\\d+\\.\\d+)',
+      ],
+      depNameTemplate: 'mediathekview',
+      datasourceTemplate: 'github-tags',
+      packageNameTemplate: 'mediathekview/MediathekView',
+      versioningTemplate: 'semver',
+    },
+  ],
+
+
+  packageRules: [
+    {
+      matchCategories: [
+        'docker',
+      ],
+      enabled: true,
+      pinDigests: true,
+    },
+    {
+      // ===========================================================================
+      // MediathekView
+      // ===========================================================================  
+      matchDatasources: [
+        'github-tags',
+      ],
+      matchDepNames: [
+        'mediathekview',
+      ],
+      labels: [
+        'dependencies',
+        'apps',
+      ],
+      draftPR: true,
+      additionalBranchPrefix: 'app/',
+      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+    },
+    {
+      // ===========================================================================
+      // GitHub Actions
+      // ===========================================================================  
+      matchManagers: [
+        'github-actions',
+      ],
+      labels: [
+        'dependencies',
+        'github_actions',
+      ],
+      matchPackageNames: [
+        '*',
+      ],
+      draftPR: true,
+      additionalBranchPrefix: 'github_action/',
+      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+    },
+    {
+      // ===========================================================================
+      // Docker Repository - debian
+      // ===========================================================================
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'debian',
+      ],
+      versioning: 'docker',
+      rangeStrategy: 'pin',
+      labels: [
+        'dependencies',
+        'docker',
+      ],
+      draftPR: true,
+      additionalBranchPrefix: 'docker/',
+      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+    },
+    {
+      // ===========================================================================
+      // Docker Repository - jlesage/baseimage-gui
+      // ===========================================================================
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'jlesage/baseimage-gui',
+      ],
+      versioning: 'regex:^(?<prefix>debian-\\d+-v)(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$',
+      // rangeStrategy: 'pin',
+      labels: [
+        'dependencies',
+        'docker',
+      ],
+      // pinDigests: true,
+      draftPR: true,
+      allowedVersions: '>=12.0.0',
+      additionalBranchPrefix: 'docker/',
+      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+    },
+  ],
+}
