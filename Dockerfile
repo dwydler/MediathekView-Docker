@@ -60,8 +60,8 @@ ARG DOCKER_IMAGE_VERSION
 LABEL maintainer="Daniel Wydler" \
       org.opencontainers.image.authors="Daniel Wydler" \
       org.opencontainers.image.description="MediathekView durchsucht Online-Mediatheken öffentlich-rechtlicher Sender." \
-      org.opencontainers.image.documentation="https://github.com/dwydler/MediathekView-Docker/blob/master/README.md" \
-      org.opencontainers.image.source="https://github.com/dwydler/MediathekView-Docker" \
+      org.opencontainers.image.documentation="https://github.com/wydler/MediathekView-Docker/blob/master/README.md" \
+      org.opencontainers.image.source="https://github.com/wydler/MediathekView-Docker" \
       org.opencontainers.image.title="wydler/mediathekview" \
       org.opencontainers.image.url="https://hub.docker.com/r/wydler/mediathekview"
 
