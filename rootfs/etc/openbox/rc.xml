@@ -1,0 +1,7 @@
+<openbox_config>
+  <applications>
+    <application type="normal" title="MediathekView*">
+        <maximize>yes</maximize>
+    </application>
+  </applications>
+</openbox_config>
