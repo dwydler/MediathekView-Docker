@@ -1,2 +1,4 @@
-<Type>normal</Type>
-<Title>Mediathekview</Title>
+<main-window>
+    <Type>normal</Type>
+    <Title>MediathekView*</Title>
+</main-window>
