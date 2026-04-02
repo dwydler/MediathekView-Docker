@@ -14,7 +14,7 @@ This is a port to a Docker container. The container is based on the project [doc
 ## Install Docker, download containers und configure application
 1. This script will install docker and containerd:
   ```
-  curl https://raw.githubusercontent.com/dwydler/MediathekView-Docker/refs/heads/master/misc/02-docker.io-installation.sh | bash
+  curl https://raw.githubusercontent.com/wydler/MediathekView-Docker/refs/heads/master/misc/02-docker.io-installation.sh | bash
   ```
 2. For IPv6 support, edit the Docker daemon configuration file, located at `/etc/docker/daemon.json`. Configure the following parameters and run `systemctl restart docker.service` to restart docker:
   ```
@@ -25,7 +25,7 @@ This is a port to a Docker container. The container is based on the project [doc
   ```
 3. Clone the repository to the correct folder for docker container:
   ```
-  git clone https://github.com/dwydler/MediathekView-Docker.git /opt/containers/mediathekview
+  git clone https://github.com/wydler/MediathekView-Docker.git /opt/containers/mediathekview
   git -C /opt/containers/mediathekview checkout $(git -C /opt/containers/mediathekview tag | tail -1)
   ```
 4. Create docker-compose.yml and .env file:
