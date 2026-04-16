@@ -14,7 +14,7 @@
     'custom.regex',
     'dockerfile',
   ],
- 
+
 
   customManagers: [
     {
@@ -60,9 +60,9 @@
       ],
       draftPR: true,
       additionalBranchPrefix: 'app/',
-      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      branchTopic: '{{depNameSanitized}}-{{#if newVersion}}{{newVersion}}{{else}}{{currentValue}}-{{newDigest}}{{/if}}',
       commitMessageTopic: '{{depName}}',
-      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+      commitMessageExtra: '{{#if newVersion}}from {{currentVersion}} to {{newVersion}}{{else}}{{newValue}} from {{currentDigestShort}} to {{newDigestShort}}{{/if}}',
     },
     {
       // ===========================================================================
@@ -80,9 +80,9 @@
       ],
       draftPR: true,
       additionalBranchPrefix: 'github_action/',
-      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      branchTopic: '{{depNameSanitized}}-{{#if newVersion}}{{newVersion}}{{else}}{{currentValue}}-{{newDigest}}{{/if}}',
       commitMessageTopic: '{{depName}}',
-      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+      commitMessageExtra: '{{#if newVersion}}from {{currentVersion}} to {{newVersion}}{{else}}{{newValue}} from {{currentDigestShort}} to {{newDigestShort}}{{/if}}',
     },
     {
       // ===========================================================================
@@ -102,9 +102,9 @@
       ],
       draftPR: true,
       additionalBranchPrefix: 'docker/',
-      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      branchTopic: '{{depNameSanitized}}-{{#if newVersion}}{{newVersion}}{{else}}{{currentValue}}-{{newDigest}}{{/if}}',
       commitMessageTopic: '{{depName}}',
-      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+      commitMessageExtra: '{{#if newVersion}}from {{currentVersion}} to {{newVersion}}{{else}}{{newValue}} from {{currentDigestShort}} to {{newDigestShort}}{{/if}}',
     },
     {
       // ===========================================================================
@@ -126,9 +126,9 @@
       draftPR: true,
       allowedVersions: '>=12.0.0',
       additionalBranchPrefix: 'docker/',
-      branchTopic: '{{depNameSanitized}}-{{newVersion}}',
+      branchTopic: '{{depNameSanitized}}-{{#if newVersion}}{{newVersion}}{{else}}{{currentValue}}-{{newDigest}}{{/if}}',
       commitMessageTopic: '{{depName}}',
-      commitMessageExtra: 'from {{currentVersion}} to {{newVersion}}',
+      commitMessageExtra: '{{#if newVersion}}from {{currentVersion}} to {{newVersion}}{{else}}{{newValue}} from {{currentDigestShort}} to {{newDigestShort}}{{/if}}',
     },
   ],
 }
